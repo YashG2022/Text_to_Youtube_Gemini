@@ -7,8 +7,8 @@ from yaml import safe_load
 
 @dataclass
 class Config:
-    OPENAI_API_KEY: str
-    OPENAI_PROMPTS_PATH: str
+    GEMINIAI_API_KEY: str
+    GEMINIAI_PROMPTS_PATH: str
     SOURCE_DIR: str
     PROCESS_DIR: str
     OUTPUT_DIR: str

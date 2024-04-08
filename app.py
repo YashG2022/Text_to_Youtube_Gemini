@@ -1,9 +1,8 @@
 from pathlib import Path
-
 from src.audio import generate_voice_over
 from src.config import cfg
 from src.logger import logger
-from src.openai_generation import run_openai_generation
+from src.geminiai_generation import run_geminiai_generation
 from src.utils import (
     generate_video_meta,
     get_cookies,
@@ -20,28 +19,28 @@ cookies = get_cookies()
 
 def run(file_path: Path):
     # read data from txt file
+    print(2)
     input_data: str = read_data_from_file(file_path)
     logger.info("Input data loaded")
     # run openai prompt with file
-    openai_output = ""
+    geminiai_output = ""
     for _ in range(3):
-        cur_output = run_openai_generation(input_data, "prompt.txt")
+        cur_output = run_geminiai_generation(input_data, "prompt.txt")
         cur_output = cur_output.replace('"', "").replace("'", "")
-        if len(cur_output.split()) > len(openai_output.split()):
-            openai_output = cur_output
-        if len(openai_output.split()) >= 500:
+        if len(cur_output.split()) > len(geminiai_output.split()):
+            geminiai_output = cur_output
+        if len(geminiai_output.split()) >= 500:
             break
-    logger.info("OpenAI response received")
+    logger.info("Gemini AI response received")
+    print(geminiai_output)
     # split data into pieces
-    splitted_output = split_openai_output(openai_output)
-
+    splitted_output = split_openai_output(geminiai_output)
     file_output_dir = f"{cfg.PROCESS_DIR}/{file_path.stem}"
+    print(file_output_dir)
     # save video metadata into folder
     generate_video_meta(splitted_output, file_output_dir)
-
     # generate audio
     audio_duration = generate_voice_over(splitted_output, file_output_dir)
-
     # save videos for further use
     save_videos(splitted_output, audio_duration, file_output_dir, cookies, cfg.YT_PROBA)
 
