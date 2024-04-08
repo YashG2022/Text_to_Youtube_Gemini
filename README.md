@@ -69,7 +69,7 @@ We posted 1 video daily for about 20-25 days. In the end, we got around 8,000 vi
 
 
 ## Contributors
-
+- [Yash Gautam](https://github.com/YashG2022)
 - [Art Kulakov](https://github.com/artkulak)
 - [Movses M](https://github.com/mirmozavr)
 
